@@ -21,7 +21,7 @@ frame to radar frame transform).
 
 ## Cite
 
-If you use REVE for your academic research, please cite our related paper:
+If you use REVE for your academic research, please cite our related [paper](https://christopherdoer.github.io/publication/2020_09_MFI2020):
 
 ~~~[bibtex]
 @INPROCEEDINGS{DoerMFI2020, 
