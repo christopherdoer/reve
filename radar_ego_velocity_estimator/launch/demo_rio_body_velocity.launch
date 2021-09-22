@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--This file is part of REVE - Radar Ego Velocity Estimator-->
+<!--@author: Christopher Doer <christopher.doer@kit.edu>-->
+
+<launch>
+    <arg name="mode"/> <!-- rosbag (postprocessing) or ros (live) -->
+
+    <arg name="do_plot" default="True"/>
+
+    <arg name="config" default="params_demo_dataset"/>
+    <arg name="calibration" default="$(find radar_ego_velocity_estimator)/../demo_datasets/calib_rio"/>
+    <arg name="topic_twist" default="/radar_body_velocity_estimation_node/twist_body"/>
+    <arg name="run_without_trigger" default="False"/>
+    <arg name="use_odr" default="False"/>
+
+    <!--    only required if mode is rosbag-->
+    <arg name="dataset_dir" default="$(find radar_ego_velocity_estimator)/../demo_datasets/"/>
+    <arg name="rosbag" default="demo_rio_format.bag"/>
+    <arg name="bag_start" default="0."/>
+    <arg name="bag_duration" default="-1"/>
+
+    <node name="radar_body_velocity_estimator" pkg="radar_ego_velocity_estimator" type="radar_body_velocity_estimation_$(arg mode)_node"
+          output="screen" launch-prefix="bash -c 'sleep 1; $0 $@' ">>
+        <param name="rosbag_path" value="$(arg dataset_dir)/$(arg rosbag)" type="string"/>
+        <param name="bag_start" value="$(arg bag_start)" type="double"/>
+        <param name="bag_duration" value="$(arg bag_duration)" type="double"/>
+        <param name="sleep_ms" value="1" type="double"/>
+
+        <rosparam file="$(find radar_ego_velocity_estimator)/config/$(arg config).yaml" command="load"/>
+        <rosparam file="$(arg calibration).yaml" command="load" ns=""/>
+        <param name="gyro_init_s" value="1.0" type="double"/>
+        <param name="run_without_trigger" value="$(arg run_without_trigger)" type="bool"/>
+        <param name="use_odr" value="$(arg use_odr)" type="bool"/>
+        <param name="topic_twist" value="$(arg topic_twist)" type="string"/>
+    </node>
+
+    <node name="velocity_estimation_evaluator" pkg="radar_ego_velocity_estimator" type="velocity_estimation_evaluator.py"
+          output="screen" required="True" if="$(arg do_plot)">
+        <rosparam file="$(arg calibration).yaml" command="load" ns=""/>
+        <param name="topic_v" value="$(arg topic_twist)" type="string"/>
+        <param name="velocity_type" value="Radar Body Velocity" type="string"/>
+        <param name="topic_v_gt" value="/ground_truth/twist_body" type="string"/>
+    </node>
+</launch>
+
+
