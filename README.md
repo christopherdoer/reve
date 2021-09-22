@@ -1,7 +1,7 @@
 # REVE - Radar Ego Velocity Estimator
 
 REVE - Radar Ego Velocity Estimator is an efficient C++ implementation for ego velocity estimation using radar scans. Such scans (=3D point cloud) can be
-measured using modern mmwave radar sensors. Allows for robust and accurate ego velocity estimation even in challenging conditions (darkness, fog, smoke) as radar is not
+measured using modern mmWave radar sensors. Allows for robust and accurate ego velocity estimation even in challenging conditions (darkness, fog, smoke) as radar is not
 affected by such conditions!
 
 ### Highlights
@@ -70,13 +70,13 @@ roslaunch radar_ego_velocity_estimator demo_rio_ego_velocity.launch mode:=rosbag
 Run the body velocity demo launch file with evaluation generating the two lower plots:
 
 ~~~[shell]
-roslaunch radar_body_velocity_estimator demo_rio_ego_velocity.launch mode:=rosbag
+roslaunch radar_ego_velocity_estimator demo_rio_body_velocity.launch mode:=rosbag
 ~~~
 
 Run the body velocity estimation in online mode:
 
 ~~~[shell]
-roslaunch radar_body_velocity_estimator demo_rio_ego_velocity.launch mode:=ros
+roslaunch radar_ego_velocity_estimator demo_rio_body_velocity.launch mode:=ros
 rosbag play --clock demo_rio_format.bag
 ~~~
 

@@ -35,8 +35,8 @@
         <param name="topic_twist" value="$(arg topic_twist)" type="string"/>
     </node>
 
-    <node name="radar_body_velocity_estimator" pkg="radar_ego_velocity_estimator" type="radar_body_velocity_estimation_$(arg mode)_node"
-          output="screen" launch-prefix="bash -c 'sleep 1; $0 $@' ">>
+    <node name="velocity_estimation_evaluator" pkg="radar_ego_velocity_estimator" type="velocity_estimation_evaluator.py"
+          output="screen" required="True" if="$(arg do_plot)">
         <rosparam file="$(arg calibration).yaml" command="load" ns=""/>
         <param name="topic_v" value="$(arg topic_twist)" type="string"/>
         <param name="velocity_type" value="Radar Ego Velocity" type="string"/>
