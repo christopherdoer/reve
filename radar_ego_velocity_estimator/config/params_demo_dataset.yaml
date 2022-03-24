@@ -15,9 +15,9 @@ sigma_zero_velocity_y: 0.025      # sigma_v_r
 sigma_zero_velocity_z: 0.025      # sigma v_r
 
 # result filtering
-max_sigma_x: 0.2   # max estimated sigmas to be considered an inlier
-max_sigma_y: 0.2
-max_sigma_z: 0.2
+max_sigma_x: 0.2   # max estimated sigma to be considered an inlier (right)
+max_sigma_y: 0.15  # (forward)
+max_sigma_z: 0.2   # (up)
 max_r_cond: 1.0e3  # max conditional number of LSQ Pseudo Inverse to ensure a stable result
 use_cholesky_instead_of_bdcsvd: True # faster but less stable
 
@@ -26,11 +26,11 @@ use_ransac: True     # turn on RANSAC LSQ
 outlier_prob: 0.4    # worst case outlier probability
 success_prob: 0.9999 # probability of successful determination of inliers
 N_ransac_points: 3   # number of measurements used for the RANSAC solution
-inlier_thresh: 0.36  # inlier threshold for inlier determination
+inlier_thresh: 0.15  # inlier threshold for inlier determination
 
 # noise offset
 sigma_offset_radar_x: 0.05   # offset added to estimated sigmas
-sigma_offset_radar_y: 0.05
+sigma_offset_radar_y: 0.025
 sigma_offset_radar_z: 0.05
 
 # ODR refinement
