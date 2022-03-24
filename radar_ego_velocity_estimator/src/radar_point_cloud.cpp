@@ -59,6 +59,10 @@ bool reve::pcl2msgToPcl(const sensor_msgs::PointCloud2& pcl_msg, pcl::PointCloud
     pcl::PCLPointCloud2 pcl_pc2;
     pcl_conversions::toPCL(pcl_msg, pcl_pc2);
     pcl::fromPCLPointCloud2(pcl_pc2, scan);
+
+    // fix format
+    for (auto& p : scan) p.range = p.getVector3fMap().norm();
+
     return true;
   }
   else if (fields.find("x") != fields.end() && fields.find("y") != fields.end() && fields.find("z") != fields.end() &&
