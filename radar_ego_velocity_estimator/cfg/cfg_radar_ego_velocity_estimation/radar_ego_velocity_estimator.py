@@ -32,12 +32,15 @@ def configure(gen):
     radar_refiner.add("use_cholesky_instead_of_bdcsvd", bool_t, 0, "Faster but less stable", True)
 
     radar_refiner.add("use_ransac", bool_t, 0, "Enables RANSAC LSQ", True)
-    radar_refiner.add("outlier_prob", double_t, 0, "Outlier probabilty", 0.4, 0, 1)
+    radar_refiner.add("outlier_prob", double_t, 0, "Outlier probability", 0.4, 0, 1)
     radar_refiner.add("success_prob", double_t, 0, "Probability for RANSAC success", 0.9999, 0, 1)
     radar_refiner.add("N_ransac_points", int_t, 0, "Number of RANSAC points (at least 3 required)", 3, 3, 20)
     radar_refiner.add("inlier_thresh", double_t, 0, "Inlier threshold", 0.15, 0, 2)
 
-    radar_refiner.add("use_odr", bool_t, 0, "Enables ODR refinement", True)
+    radar_refiner.add("use_odr", bool_t, 0, "Enables subsequent ODR refinement", True)
+    radar_refiner.add("min_speed_odr", double_t, 0, "", 4, 0, 100)
     radar_refiner.add("sigma_v_d", double_t, 0, "Sigma of Doppler velocity measurements used in ODR refinement", 0.125, 0, 10)
+    radar_refiner.add("model_noise_offset_deg", double_t, 0, "Min noise azimuth and elevation", 1, 0, 100)
+    radar_refiner.add("model_noise_scale_deg", double_t, 0, "Noise scaling", 1, 0, 100)
 
     return gen

@@ -35,4 +35,7 @@ sigma_offset_radar_z: 0.05
 
 # ODR refinement
 use_odr: False    # turn on odr refinement
+min_speed_odr: 4.0 # min speed for ODR refinement
 sigma_v_r: 0.125  # noise of v_r measurement used for the refinement
+model_noise_offset_deg: 2.0 # min model noise
+model_noise_scale_deg: 10.0 # scale model noise

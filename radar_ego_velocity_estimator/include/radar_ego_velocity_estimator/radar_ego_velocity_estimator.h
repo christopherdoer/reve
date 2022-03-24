@@ -167,6 +167,9 @@ bool RadarEgoVelocityEstimator::configure(ConfigContainingRadarEgoVelocityEstima
 
   config_.use_odr   = config.use_odr;
   config_.sigma_v_d = config.sigma_v_d;
+  config_.min_speed_odr = config.min_speed_odr;
+  config_.model_noise_offset_deg = config.model_noise_offset_deg;
+  config_.model_noise_scale_deg = config.model_noise_scale_deg;
 
   setRansacIter();
 

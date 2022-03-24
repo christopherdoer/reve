@@ -176,9 +176,7 @@ bool RadarEgoVelocityEstimator::estimate(const sensor_msgs::PointCloud2& radar_s
           for (const auto& idx : inlier_idx_best)
             radar_scan_inlier.push_back(toRadarPointCloudType(valid_targets.at(idx), idx_));
 
-          // no odr refinement for low velocities (performs worst than LSQ due to velocity decimation)
-          // ToDo make dependent on acutal bin size
-          if (success && config_.use_odr && v_r.norm() > 1.5 && inlier_idx_best.size() > 10)
+          if (success && config_.use_odr && v_r.norm() > config_.min_speed_odr && inlier_idx_best.size() > 10)
           {
             Matrix radar_data_inlier(inlier_idx_best.size(), 4);
             for (uint i = 0; i < inlier_idx_best.size(); ++i)
@@ -320,19 +318,16 @@ bool RadarEgoVelocityEstimator::solve3DOdr(const Matrix& radar_data, Vector3& v_
   Eigen::VectorXd sigma_y(n);
   sigma_y = config_.sigma_v_d * Eigen::VectorXd::Ones(n);
 
-  const Real bins_size = angles::from_degrees(1.8);
   Eigen::MatrixXd sigma_x(n, 3);
   for (uint k = 0; k < n; ++k)
   {
-    // weighting (still experimental...)
-    // ToDo check!
-    const auto alpha = std::min(M_PI_2 - 0.001, std::fabs(std::atan2(H(k, 1), H(k, 0))));
-    const auto beta  = std::min(M_PI_2 - 0.001, std::fabs(std::atan2(H(k, 2), H(k, 0))));
-    sigma_x(k, 0)    = std::max(0.001, bins_size * std::sin(alpha) / std::sqrt(1 - std::pow(alpha / M_PI_2, 2)));
-    sigma_x(k, 1)    = std::max(0.001, bins_size * std::cos(alpha) / std::sqrt(1 - std::pow(alpha / M_PI_2, 2)));
-    sigma_x(k, 2)    = std::max(0.001, bins_size * std::sin(beta) / std::sqrt(1 - std::pow(beta / M_PI_2, 2)));
+    sigma_x(k, 0) = angles::from_degrees(config_.model_noise_offset_deg) +
+                    angles::from_degrees(config_.model_noise_scale_deg) * (1.0 - std::fabs(H(k, 0)));
+    sigma_x(k, 1) = angles::from_degrees(config_.model_noise_offset_deg) +
+                    angles::from_degrees(config_.model_noise_scale_deg) * (1.0 - std::fabs(H(k, 1)));
+    sigma_x(k, 2) = angles::from_degrees(config_.model_noise_offset_deg) +
+                    angles::from_degrees(config_.model_noise_scale_deg) * (1.0 - std::fabs(H(k, 2)));
   }
-
   Eigen::VectorXd v_r_odr(3);
   v_r_odr = v_r;
 
