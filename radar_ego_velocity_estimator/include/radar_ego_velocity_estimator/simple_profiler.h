@@ -21,7 +21,7 @@
 #include <unordered_map>
 #include <map>
 #include <chrono>
-
+#include <numeric>
 #include <yaml-cpp/yaml.h>
 
 #include <ros/console.h>
