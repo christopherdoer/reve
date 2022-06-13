@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 # This file is part of REVE - Radar Ego Velocity Estimator
 # @author  Christopher Doer <christopher.doer@kit.edu>

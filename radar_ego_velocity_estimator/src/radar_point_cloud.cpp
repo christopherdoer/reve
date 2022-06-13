@@ -106,4 +106,6 @@ bool reve::pclToPcl2msg(pcl::PointCloud<RadarPointCloudType> scan, sensor_msgs::
   pcl::PCLPointCloud2 tmp;
   pcl::toPCLPointCloud2<RadarPointCloudType>(scan, tmp);
   pcl_conversions::fromPCL(tmp, pcl_msg);
+
+  return true;
 }

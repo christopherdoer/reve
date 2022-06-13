@@ -174,5 +174,7 @@ bool RadarEgoVelocityEstimator::configure(ConfigContainingRadarEgoVelocityEstima
   setRansacIter();
 
   ROS_INFO_STREAM(kPrefix << "Number of Ransac iterations: " << ransac_iter_);
+
+  return true;
 }
 }  // namespace reve
