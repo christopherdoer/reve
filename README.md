@@ -95,9 +95,12 @@ roslaunch radar_ego_velocity_estimator demo_ti_mmwave_body_velocity.launch mode:
 
 ## Getting Started
 
-Our implementation depends on:
-
+REVE supports:
 - Ubuntu 16.04 and ROS Kinetic
+- Ubuntu 18.04 and ROS Melodic
+- Ubuntu 20.04 and ROS Noetic
+
+REVE depends on:
 - [catkin_simple](https://github.com/catkin/catkin_simple.git)
 - [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/) (for convenience)
 
