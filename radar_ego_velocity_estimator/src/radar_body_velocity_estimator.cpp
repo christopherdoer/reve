@@ -50,7 +50,7 @@ RadarBodyVelocityEstimator::RadarBodyVelocityEstimator(ros::NodeHandle nh, const
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "azimuth_thresh_deg", config.azimuth_thresh_deg);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "filter_min_z", config.filter_min_z);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "filter_max_z", config.filter_max_z);
-    success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "radar_velocity_correction_factor", config.doppler_velocity_correction_factor);
+    success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "doppler_velocity_correction_factor", config.doppler_velocity_correction_factor);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "thresh_zero_velocity", config.thresh_zero_velocity);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "allowed_outlier_percentage", config.allowed_outlier_percentage);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "sigma_zero_velocity_x", config.sigma_zero_velocity_x);
@@ -70,7 +70,10 @@ RadarBodyVelocityEstimator::RadarBodyVelocityEstimator(ros::NodeHandle nh, const
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "sigma_offset_radar_y", config.sigma_offset_radar_y);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "sigma_offset_radar_z", config.sigma_offset_radar_z);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "use_odr", config.use_odr);
+    success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "min_speed_odr", config.min_speed_odr);
     success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "sigma_v_d", config.sigma_v_d);
+    success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "model_noise_offset_deg", config.model_noise_offset_deg);
+    success &= getRosParameter(nh, kPrefix, RosParameterType::Required, "model_noise_scale_deg", config.model_noise_scale_deg);
     // clang-format on
     configure(config);
   }
